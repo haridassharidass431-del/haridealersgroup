@@ -1,15 +1,15 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useCart } from '../../context/CartContext';
-import { BUSINESS_CONFIG, getWhatsAppLink } from '../../data/businessData';
-import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, AlertCircle, ArrowRight } from 'lucide-react';
+import { useCart } from '../../context/cartStore';
+import { getWhatsAppLink } from '../../data/businessData';
+import { X, Trash2, Plus, Minus, ShoppingBag, MessageCircle, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export const CartDrawer: React.FC = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, totalPrice, totalCount, isCartOpen, setIsCartOpen } = useCart();
 
   const generateWhatsAppOrderText = () => {
-    let text = `*NEW ORDER INQUIRY - HARIDEALERS CLOTHING*\n\n`;
+    let text = `*NEW ORDER INQUIRY - HARIDEALERS TEXTILES*\n\n`;
     text += `Hello! I would like to place an order for the following items:\n\n`;
     cart.forEach((item, index) => {
       text += `${index + 1}. *${item.product.name}*\n`;
@@ -71,7 +71,7 @@ export const CartDrawer: React.FC = () => {
                     <p className="text-base font-semibold text-white mb-1">Your cart is currently empty</p>
                     <p className="text-xs max-w-xs mb-6">Explore our curated Haridealers apparel, heavyweight streetwear, and lifestyle pieces.</p>
                     <Link
-                      to="/clothing"
+                      to="/shop"
                       onClick={() => setIsCartOpen(false)}
                       className="px-5 py-2.5 rounded-full text-xs font-semibold bg-[#D4AF37] text-black hover:bg-[#F5D77F] transition-all"
                     >

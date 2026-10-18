@@ -2,17 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BUSINESS_CONFIG, getWhatsAppLink } from '../../data/businessData';
-import { useCart } from '../../context/CartContext';
-import { 
-  Menu, 
-  X, 
-  ShoppingBag, 
-  MessageCircle, 
-  Cpu, 
-  Printer, 
-  Sparkles,
-  ArrowRight
-} from 'lucide-react';
+import { useCart } from '../../context/cartStore';
+import { Menu, X, ShoppingBag, MessageCircle, Printer, ArrowRight } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,11 +19,6 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location.pathname]);
-
   const navLinks = [
     { name: 'Overview', path: '/' },
     { 
@@ -41,14 +27,13 @@ export const Navbar: React.FC = () => {
       badge: 'Active Hub', 
       badgeColor: 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' 
     },
-    { name: 'Clothing', path: '/clothing' },
+    { name: 'Clothing', path: 'https://haridealers.vercel.app/', external: true },
     { 
       name: 'Artigence AI', 
       path: '/artigence', 
       badge: 'AI Lab', 
       badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/30' 
     },
-    { name: 'Exports', path: '/exports' },
     { name: 'Digital Services', path: '/digital-services' },
     { name: 'R&D', path: '/rnd' },
     { name: 'About', path: '/about' },
@@ -93,8 +78,13 @@ export const Navbar: React.FC = () => {
           <nav className="hidden xl:flex items-center gap-1.5" aria-label="Main Navigation">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
-              return (
-                <Link
+              return link.external ? <a
+                  key={link.path}
+                  href={link.path}
+                  className="relative px-3 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 flex items-center gap-1.5 text-[#9da0ab] hover:text-white hover:bg-white/5"
+                >
+                  <span>{link.name}</span>
+                </a> : <Link
                   key={link.path}
                   to={link.path}
                   className={`relative px-3 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all duration-200 flex items-center gap-1.5 ${
@@ -116,8 +106,7 @@ export const Navbar: React.FC = () => {
                       transition={{ type: 'spring', stiffness: 350, damping: 30 }}
                     />
                   )}
-                </Link>
-              );
+                </Link>;
             })}
           </nav>
 
@@ -194,8 +183,15 @@ export const Navbar: React.FC = () => {
 
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
-                return (
-                  <Link
+                return link.external ? <a
+                    key={link.path}
+                    href={link.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors text-[#9da0ab] hover:text-white hover:bg-white/5"
+                  >
+                    <span>{link.name}</span>
+                    <ArrowRight className="w-3.5 h-3.5 opacity-40" />
+                  </a> : <Link
                     key={link.path}
                     to={link.path}
                     className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
@@ -213,8 +209,7 @@ export const Navbar: React.FC = () => {
                       )}
                       <ArrowRight className="w-3.5 h-3.5 opacity-40" />
                     </div>
-                  </Link>
-                );
+                  </Link>;
               })}
 
               {/* Mobile WhatsApp Button */}

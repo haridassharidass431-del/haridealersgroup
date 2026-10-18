@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BUSINESS_CONFIG, getWhatsAppLink } from '../../data/businessData';
-import { 
-  Printer, 
-  ShoppingBag, 
-  Cpu, 
-  Globe2, 
-  Code2, 
-  FlaskConical, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Clock, 
+import {
+  Printer,
+  ShoppingBag,
+  Cpu,
+  Code2,
+  FlaskConical,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
   MessageCircle,
   ExternalLink,
-  ShieldCheck
+  ShieldCheck,
 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
+  const [currentYear] = useState(() => new Date().getFullYear());
+
   return (
     <footer className="relative bg-[#060608] border-t border-white/10 text-[#9da0ab] pt-16 pb-12 overflow-hidden">
       {/* Decorative ambient gradient backdrop */}
@@ -89,21 +90,15 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/clothing" className="hover:text-white transition-colors flex items-center gap-1.5">
+                <Link to="/shop" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Clothing &amp; Apparel</span>
+                  <span>Haridealers Textiles</span>
                 </Link>
               </li>
               <li>
                 <Link to="/artigence" className="hover:text-[#C084FC] transition-colors flex items-center gap-1.5">
                   <Cpu className="w-3.5 h-3.5 text-[#8B5CF6]" />
                   <span>Artigence AI Hub</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/exports" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <Globe2 className="w-3.5 h-3.5 text-blue-400" />
-                  <span>Exports &amp; Trade</span>
                 </Link>
               </li>
               <li>
@@ -162,7 +157,7 @@ export const Footer: React.FC = () => {
               <div className="flex items-start gap-2">
                 <MapPin className="w-3.5 h-3.5 text-[#D4AF37] shrink-0 mt-0.5" />
                 <span className="text-[11px] leading-relaxed">
-                  {BUSINESS_CONFIG.contact.shopAddress.line1}, {BUSINESS_CONFIG.contact.shopAddress.city}
+                  {BUSINESS_CONFIG.contact.shopAddress.line1}, {BUSINESS_CONFIG.contact.shopAddress.line2}, {BUSINESS_CONFIG.contact.shopAddress.city}
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -199,7 +194,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Disclaimer & Copyright */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#656874]">
           <p className="text-center md:text-left leading-relaxed max-w-2xl">
-            &copy; {new Date().getFullYear()} {BUSINESS_CONFIG.groupName}. All rights reserved. 
+            &copy; {currentYear} {BUSINESS_CONFIG.groupName}. All rights reserved. 
             Official emblems are proprietary marks. Active services, technical prototypes, and planned trade divisions are transparently denoted.
           </p>
           <div className="flex items-center gap-2 text-[11px]">

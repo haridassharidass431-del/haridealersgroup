@@ -1,17 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { BUSINESS_CONFIG, getWhatsAppLink } from '../data/businessData';
-import { 
-  Building2, 
-  Sparkles, 
-  ShieldCheck, 
-  Target, 
-  Compass, 
-  Clock, 
-  Award, 
-  MessageCircle, 
+import {
+  Building2,
+  Target,
+  Compass,
   ArrowRight,
-  User
+  User,
 } from 'lucide-react';
 
 export const AboutPage: React.FC = () => {

@@ -1,30 +1,17 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  XEROX_SERVICES, 
-  BUSINESS_CONFIG, 
-  getWhatsAppLink, 
-  ServiceItem 
-} from '../data/businessData';
-import { 
-  Printer, 
-  FileText, 
-  Layers, 
-  CheckCircle2, 
-  Clock, 
-  MapPin, 
-  Phone, 
-  MessageCircle, 
-  Calculator, 
-  Sparkles, 
-  ExternalLink, 
-  AlertCircle,
-  HelpCircle,
-  ArrowRight,
-  Send,
-  ShieldCheck,
+import { XEROX_SERVICES, BUSINESS_CONFIG, getWhatsAppLink, ServiceItem } from '../data/businessData';
+import {
+  Clock,
+  MapPin,
+  Phone,
+  MessageCircle,
+  Calculator,
+  ExternalLink,
   FileCheck,
-  Copy
+  Layers,
+  Copy,
+  HelpCircle,
 } from 'lucide-react';
 
 export const XeroxPage: React.FC = () => {
@@ -36,20 +23,19 @@ export const XeroxPage: React.FC = () => {
   // --- INTERACTIVE PRICE CALCULATOR STATE ---
   const [calcPages, setCalcPages] = useState<number>(25);
   const [calcPrintType, setCalcPrintType] = useState<'bw' | 'color'>('bw');
+  const [calcRateType, setCalcRateType] = useState<'single' | 'wholesale'>('single');
   const [calcSides, setCalcSides] = useState<'single' | 'double'>('double');
   const [calcBinding, setCalcBinding] = useState<'none' | 'spiral' | 'lamination' | 'thesis'>('spiral');
   const [calcCopies, setCalcCopies] = useState<number>(1);
 
   // Price calculations based on editable rates
   const calculatedEstimate = useMemo(() => {
-    const ratePerPage = calcPrintType === 'bw' 
-      ? (calcSides === 'double' ? 1.5 : 2.0) // discounted rate for back-to-back
-      : (calcSides === 'double' ? 8.0 : 10.0);
+    const ratePerPage = calcPrintType === 'bw' ? (calcRateType === 'wholesale' ? 0.9 : 2) : 5;
 
     const printCostPerCopy = calcPages * ratePerPage;
     
     let bindingCost = 0;
-    if (calcBinding === 'spiral') bindingCost = 35;
+    if (calcBinding === 'spiral') bindingCost = calcRateType === 'wholesale' ? 30 : 40;
     else if (calcBinding === 'lamination') bindingCost = 20;
     else if (calcBinding === 'thesis') bindingCost = 250;
 
@@ -60,7 +46,7 @@ export const XeroxPage: React.FC = () => {
       bindingCost,
       total: Math.max(subtotal, 10), // minimum nominal charge
     };
-  }, [calcPages, calcPrintType, calcSides, calcBinding, calcCopies]);
+  }, [calcPages, calcPrintType, calcRateType, calcBinding, calcCopies]);
 
   // Generate prefilled WhatsApp message for this calculator estimate
   const calculatorWhatsAppUrl = useMemo(() => {
@@ -76,16 +62,21 @@ export const XeroxPage: React.FC = () => {
     return getWhatsAppLink(msg);
   }, [calcPages, calcPrintType, calcSides, calcBinding, calcCopies, calculatedEstimate]);
 
-  // Live shop open/closed helper (Indian Standard Time 8:30 AM to 9:30 PM)
-  const isShopOpen = useMemo(() => {
-    try {
-      const now = new Date();
-      // Using local hour
-      const hour = now.getHours();
-      return hour >= 8 && hour < 22;
-    } catch {
-      return true;
-    }
+  const [isShopOpen, setIsShopOpen] = useState(true);
+
+  useEffect(() => {
+    const updateIsShopOpen = () => {
+      try {
+        const hour = new Date().getHours();
+        setIsShopOpen(hour >= 8 && hour < 22);
+      } catch {
+        setIsShopOpen(true);
+      }
+    };
+
+    updateIsShopOpen();
+    const interval = window.setInterval(updateIsShopOpen, 60000);
+    return () => window.clearInterval(interval);
   }, []);
 
   return (
@@ -292,6 +283,15 @@ export const XeroxPage: React.FC = () => {
               {/* Form Controls */}
               <div className="lg:col-span-7 space-y-6">
                 
+                <div>
+                  <label className="block text-xs font-medium text-[#9da0ab] mb-2 uppercase tracking-wider">Order Type</label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {(['single', 'wholesale'] as const).map((type) => (
+                      <button key={type} type="button" onClick={() => setCalcRateType(type)} className={`p-3 rounded-xl border text-xs font-semibold capitalize ${calcRateType === type ? 'bg-[#D4AF37]/20 border-[#D4AF37] text-white' : 'bg-white/5 border-white/10 text-[#9da0ab]'}`}>{type} order</button>
+                    ))}
+                  </div>
+                </div>
+
                 {/* Print Type: B&W vs Color */}
                 <div>
                   <label className="block text-xs font-medium text-[#9da0ab] mb-2 uppercase tracking-wider">
@@ -311,7 +311,7 @@ export const XeroxPage: React.FC = () => {
                         <div className="text-xs font-bold font-editorial">Black &amp; White</div>
                         <div className="text-[11px] text-[#9da0ab]">Laser 1200 DPI</div>
                       </div>
-                      <span className="text-xs font-mono font-bold text-[#F5D77F]">₹2.00 / side</span>
+                      <span className="text-xs font-mono font-bold text-[#F5D77F]">₹0.90 wholesale / ₹2 single</span>
                     </button>
 
                     <button
@@ -327,7 +327,7 @@ export const XeroxPage: React.FC = () => {
                         <div className="text-xs font-bold font-editorial">Full Colour</div>
                         <div className="text-[11px] text-[#9da0ab]">High Definition</div>
                       </div>
-                      <span className="text-xs font-mono font-bold text-[#F5D77F]">₹10.00 / page</span>
+                      <span className="text-xs font-mono font-bold text-[#F5D77F]">₹5 / page</span>
                     </button>
                   </div>
                 </div>
@@ -397,7 +397,7 @@ export const XeroxPage: React.FC = () => {
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {[
                       { id: 'none', label: 'No Binding', price: '₹0' },
-                      { id: 'spiral', label: 'Spiral Binding', price: '+₹35' },
+                      { id: 'spiral', label: 'Spiral Binding', price: calcRateType === 'wholesale' ? '+₹30 wholesale' : '+₹40 single' },
                       { id: 'lamination', label: 'Lamination', price: '+₹20' },
                       { id: 'thesis', label: 'Hard Bound', price: '+₹250' },
                     ].map((item) => (

@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BUSINESS_CONFIG, getWhatsAppLink } from '../data/businessData';
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  MessageCircle, 
-  Send, 
-  Check, 
-  Copy, 
-  AlertCircle, 
+import {
+  Mail,
+  Phone,
+  MapPin,
+  MessageCircle,
+  Send,
+  Check,
+  Copy,
+  AlertCircle,
   ExternalLink,
   ShieldCheck,
   Globe,
-  Share2
+  Share2,
 } from 'lucide-react';
 
 export const ContactPage: React.FC = () => {
@@ -151,7 +150,7 @@ export const ContactPage: React.FC = () => {
                     <p className="text-white text-xs mt-0.5 leading-relaxed">
                       {BUSINESS_CONFIG.contact.shopAddress.line1},<br />
                       {BUSINESS_CONFIG.contact.shopAddress.line2},<br />
-                      {BUSINESS_CONFIG.contact.shopAddress.city}, {BUSINESS_CONFIG.contact.shopAddress.state} - {BUSINESS_CONFIG.contact.shopAddress.postalCode}
+                      {BUSINESS_CONFIG.contact.shopAddress.city}, {BUSINESS_CONFIG.contact.shopAddress.state}
                     </p>
                     <a
                       href={BUSINESS_CONFIG.contact.shopAddress.googleMapsUrl}
@@ -256,7 +255,6 @@ export const ContactPage: React.FC = () => {
                     <option value="Xerox & Printing">Haridealers Xerox &amp; Printing (Orders &amp; Bulk Printing)</option>
                     <option value="Clothing & E-Commerce">Clothing &amp; Custom Apparel Orders</option>
                     <option value="Artigence AI Hub">Artigence AI Hub &amp; Prototype Inquiries</option>
-                    <option value="Exports & International Trade">Exports &amp; International Trade</option>
                     <option value="Digital Services">Digital Web &amp; Software Development</option>
                     <option value="General Leadership">General Management / Collaboration</option>
                   </select>

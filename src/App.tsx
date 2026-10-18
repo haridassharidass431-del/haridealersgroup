@@ -12,7 +12,6 @@ import { HomePage } from './pages/HomePage';
 import { XeroxPage } from './pages/XeroxPage';
 import { ClothingPage } from './pages/ClothingPage';
 import { ArtigencePage } from './pages/ArtigencePage';
-import { ExportsPage } from './pages/ExportsPage';
 import { DigitalServicesPage } from './pages/DigitalServicesPage';
 import { RndPage } from './pages/RndPage';
 import { AboutPage } from './pages/AboutPage';
@@ -46,8 +45,8 @@ export function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/xerox" element={<XeroxPage />} />
               <Route path="/clothing" element={<ClothingPage />} />
+              <Route path="/shop" element={<ClothingPage />} />
               <Route path="/artigence" element={<ArtigencePage />} />
-              <Route path="/exports" element={<ExportsPage />} />
               <Route path="/digital-services" element={<DigitalServicesPage />} />
               <Route path="/rnd" element={<RndPage />} />
               <Route path="/about" element={<AboutPage />} />

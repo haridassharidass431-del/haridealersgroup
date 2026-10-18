@@ -1,17 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { BUSINESS_CONFIG, getWhatsAppLink } from '../data/businessData';
-import { 
-  FlaskConical, 
-  Cpu, 
-  Radio, 
-  Lightbulb, 
-  CheckCircle2, 
-  MessageCircle, 
-  ArrowRight,
-  ShieldAlert,
-  Boxes
-} from 'lucide-react';
+import { getWhatsAppLink } from '../data/businessData';
+import { FlaskConical, MessageCircle } from 'lucide-react';
 
 export const RndPage: React.FC = () => {
   const explorations = [

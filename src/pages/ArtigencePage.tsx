@@ -1,35 +1,26 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ARTIGENCE_PROJECTS, 
-  BUSINESS_CONFIG, 
+import {
+  ARTIGENCE_PROJECTS,
+  BUSINESS_CONFIG,
   getWhatsAppLink,
-  ArtigenceProject 
+  ArtigenceProject,
 } from '../data/businessData';
-import { 
-  Cpu, 
-  Zap, 
-  Terminal, 
-  ShieldCheck, 
-  CheckCircle2, 
-  Database, 
-  Layers, 
-  Eye, 
-  Fingerprint, 
-  Scale, 
-  Radio, 
+import {
+  Cpu,
+  Terminal,
+  CheckCircle2,
+  Eye,
+  Fingerprint,
+  Scale,
   ArrowRight,
   MessageCircle,
-  Code2,
-  FileText,
-  AlertCircle,
-  Play
+  Play,
+  ShieldCheck,
 } from 'lucide-react';
 
 export const ArtigencePage: React.FC = () => {
   // Simulator state for the AI Smart Ration Distribution System
   const [simStep, setSimStep] = useState<number>(0);
-  const [simDispensing, setSimDispensing] = useState<boolean>(false);
   const [simWeight, setSimWeight] = useState<number>(0);
 
   const startSimulator = () => {
@@ -40,7 +31,6 @@ export const ArtigencePage: React.FC = () => {
   };
 
   const triggerDispense = () => {
-    setSimDispensing(true);
     setSimStep(3); // Dispensing
     let current = 0;
     const interval = setInterval(() => {
@@ -48,7 +38,6 @@ export const ArtigencePage: React.FC = () => {
       if (current >= 5.0) {
         setSimWeight(5.0);
         clearInterval(interval);
-        setSimDispensing(false);
         setSimStep(4); // Completed & logged to ledger
       } else {
         setSimWeight(parseFloat(current.toFixed(1)));
@@ -59,7 +48,6 @@ export const ArtigencePage: React.FC = () => {
   const resetSimulator = () => {
     setSimStep(0);
     setSimWeight(0);
-    setSimDispensing(false);
   };
 
   const featuredRationProject = ARTIGENCE_PROJECTS.find(p => p.id === 'smart-ration-system');

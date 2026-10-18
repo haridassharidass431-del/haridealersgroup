@@ -1,29 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  CLOTHING_PRODUCTS, 
-  ClothingProduct, 
-  getWhatsAppLink,
-  BUSINESS_CONFIG 
-} from '../data/businessData';
-import { useCart } from '../context/CartContext';
-import { 
-  ShoppingBag, 
-  Search, 
-  Filter, 
-  Star, 
-  Check, 
-  AlertCircle, 
-  X, 
-  MessageCircle, 
-  ArrowRight,
-  ShieldCheck,
-  Sparkles,
-  Layers
-} from 'lucide-react';
+import { CLOTHING_PRODUCTS, ClothingProduct, getWhatsAppLink } from '../data/businessData';
+import { useCart } from '../context/cartStore';
+import { ShoppingBag, Search, Check, AlertCircle, X, MessageCircle, Layers } from 'lucide-react';
 
 export const ClothingPage: React.FC = () => {
-  const { addToCart, setIsCartOpen } = useCart();
+  const { addToCart } = useCart();
 
   // Filtering states
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -87,7 +69,7 @@ export const ClothingPage: React.FC = () => {
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white font-editorial">
-            HARIDEALERS <span className="text-gold-gradient">CLOTHING &amp; E-COMMERCE</span>
+            HARIDEALERS <span className="text-gold-gradient">TEXTILES &amp; APPAREL</span>
           </h1>
 
           <p className="text-sm sm:text-base text-[#9da0ab] leading-relaxed">

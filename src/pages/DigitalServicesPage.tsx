@@ -1,18 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { BUSINESS_CONFIG, getWhatsAppLink } from '../data/businessData';
-import { 
-  Code2, 
-  Layout, 
-  Smartphone, 
-  Cloud, 
-  CheckCircle2, 
-  MessageCircle, 
-  ArrowRight,
-  ShieldCheck,
-  Zap,
-  Cpu
-} from 'lucide-react';
+import { getWhatsAppLink } from '../data/businessData';
+import { Code2, CheckCircle2, MessageCircle } from 'lucide-react';
 
 export const DigitalServicesPage: React.FC = () => {
   const serviceOfferings = [

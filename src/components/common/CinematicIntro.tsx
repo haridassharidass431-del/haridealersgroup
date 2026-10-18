@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BUSINESS_CONFIG } from '../../data/businessData';
 import { Sparkles, ArrowRight } from 'lucide-react';
@@ -19,7 +19,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, forc
     }
   });
 
-  const handleDismiss = () => {
+  const handleDismiss = useCallback(() => {
     try {
       sessionStorage.setItem('hd_intro_seen', 'true');
     } catch {
@@ -27,18 +27,17 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete, forc
     }
     setIsVisible(false);
     if (onComplete) onComplete();
-  };
+  }, [onComplete]);
 
   useEffect(() => {
     if (!isVisible) return;
 
-    // Automatically transition into the site after 3.8 seconds
     const timer = setTimeout(() => {
       handleDismiss();
     }, 3800);
 
     return () => clearTimeout(timer);
-  }, [isVisible]);
+  }, [handleDismiss, isVisible]);
 
   return (
     <AnimatePresence>

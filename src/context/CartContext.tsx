@@ -1,26 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { ClothingProduct } from '../data/businessData';
-
-export interface CartItem {
-  product: ClothingProduct;
-  selectedSize: string;
-  selectedColor: string;
-  quantity: number;
-}
-
-interface CartContextType {
-  cart: CartItem[];
-  addToCart: (product: ClothingProduct, size?: string, color?: string, quantity?: number) => void;
-  removeFromCart: (productId: string, size: string, color: string) => void;
-  updateQuantity: (productId: string, size: string, color: string, delta: number) => void;
-  clearCart: () => void;
-  totalCount: number;
-  totalPrice: number;
-  isCartOpen: boolean;
-  setIsCartOpen: (open: boolean) => void;
-}
-
-const CartContext = createContext<CartContextType | undefined>(undefined);
+import React, { useState, useEffect } from 'react';
+import type { ClothingProduct } from '../data/businessData';
+import { CartContext, type CartItem } from './cartStore';
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>(() => {
@@ -113,10 +93,3 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within a CartProvider');
-  }
-  return context;
-};

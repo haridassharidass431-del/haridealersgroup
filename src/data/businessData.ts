@@ -50,16 +50,6 @@ export interface ArtigenceProject {
   featured?: boolean;
 }
 
-export interface ExportCategory {
-  id: string;
-  title: string;
-  status: 'Emerging Division' | 'Planned Venture' | 'Partner Onboarding';
-  description: string;
-  products: string[];
-  specifications: string;
-  image: string;
-}
-
 export const BUSINESS_CONFIG = {
   // BRAND BASICS
   groupName: "HARIDEALERS GROUP",
@@ -77,25 +67,25 @@ export const BUSINESS_CONFIG = {
   contact: {
     // Put your 10-digit or international format phone number here (e.g. "919876543210")
     // NOTE: Keep formattedPhone human readable e.g. "+91 98765 43210"
-    phone: "+91 (Update Your Phone Number)",
-    formattedPhone: "+91 XXXXX XXXXX",
+    phone: "+91 73396 35485 / +91 88702 65485",
+    formattedPhone: "+91 73396 35485, +91 88702 65485",
     
     // WhatsApp number in international format WITHOUT '+' or spaces (e.g., "919876543210")
     // If not set yet, leave as editable placeholder:
-    whatsappNumber: "910000000000", // EDIT HERE: e.g., "919876543210"
+    whatsappNumber: "917339635485",
     
-    email: "contact@haridealers.com", // EDIT HERE
-    supportEmail: "support@haridealers.com",
+    email: "haridealers531@gmail.com",
+    supportEmail: "haridealers531@gmail.com",
     
     // Shop & Office Address
     shopAddress: {
-      line1: "Shop No. [Update Shop Number / Building Name]",
-      line2: "[Update Street / Landmark / Commercial Complex]",
-      city: "[Update City]",
-      state: "[Update State]",
-      postalCode: "[Update PIN Code]",
+      line1: "TTP Main Road, Sathangudi",
+      line2: "Mangudi",
+      city: "Thiruvarur",
+      state: "Tamil Nadu",
+      postalCode: "",
       country: "India",
-      googleMapsUrl: "https://maps.google.com/?q=Haridealers+Xerox", // EDIT HERE
+      googleMapsUrl: "https://maps.google.com/?q=TTP+Main+Road+Sathangudi+Mangudi+Thiruvarur",
     },
     
     // Business Hours
@@ -158,9 +148,9 @@ export const BUSINESS_CONFIG = {
     },
     {
       id: "clothing",
-      name: "HARIDEALERS CLOTHING & E-COMMERCE",
+      name: "HARIDEALERS TEXTILES & APPAREL",
       shortTitle: "Apparel & Lifestyle",
-      slug: "/clothing",
+      slug: "https://haridealers.vercel.app/",
       tagline: "Curated Everyday Essentials, Modern Streetwear & Textiles",
       status: "CATALOG PREVIEW",
       statusColor: "amber",
@@ -179,18 +169,6 @@ export const BUSINESS_CONFIG = {
       description: "The technological vanguard of Haridealers Group. Researching and prototyping AI applications, automated public welfare dispensers, edge biometric verification, and autonomous agent systems.",
       highlights: ["AI Smart Ration Distribution System", "Edge Biometric Anti-Pilferage", "Document OCR Intelligence", "Autonomous Business Agents"],
       image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80",
-    },
-    {
-      id: "exports",
-      name: "EXPORTS & INTERNATIONAL TRADE",
-      shortTitle: "Global Commerce",
-      slug: "/exports",
-      tagline: "Cross-Border Merchant Services, Textiles & Agri-Commodities",
-      status: "EMERGING VENTURE",
-      statusColor: "blue",
-      description: "Developing cross-border sourcing networks for premium textiles, agricultural commodities, and industrial goods connecting Indian producers to global supply corridors.",
-      highlights: ["Quality Sourcing from Mills", "Agricultural Bulk Inquiries", "Merchant Partner Onboarding", "Compliant Export Architecture"],
-      image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1200&q=80",
     },
     {
       id: "digital-services",
@@ -228,7 +206,7 @@ export const XEROX_SERVICES: ServiceItem[] = [
     name: "Black & White Photocopying",
     category: "Reprographics",
     description: "Crisp, smudge-free 1200 DPI laser photocopying on premium 75 GSM paper. Ideal for notes, legal documents, book excerpts, and bulk study material.",
-    startingPrice: "₹2.00",
+    startingPrice: "₹0.90 wholesale / ₹2 single",
     unit: "per side",
     turnaround: "Instant / 2-5 mins",
     enabled: true,
@@ -239,7 +217,7 @@ export const XEROX_SERVICES: ServiceItem[] = [
     name: "Full Colour Photocopying",
     category: "Reprographics",
     description: "Vibrant true-tone colour reproduction calibrated for certificates, charts, medical records, presentations, and identity cards.",
-    startingPrice: "₹10.00",
+    startingPrice: "₹5.00",
     unit: "per page",
     turnaround: "Instant / 3-5 mins",
     enabled: true,
@@ -282,7 +260,7 @@ export const XEROX_SERVICES: ServiceItem[] = [
     name: "Spiral & Comb Binding",
     category: "Finishing & Binding",
     description: "Professional wire-O and durable PVC spiral binding with frosted protective front cover and rigid black card backing. Holds up to 450 pages.",
-    startingPrice: "₹35.00",
+    startingPrice: "₹30 wholesale / ₹40 single",
     unit: "per book",
     turnaround: "10 - 15 mins",
     enabled: true,
@@ -468,54 +446,6 @@ export const ARTIGENCE_PROJECTS: ArtigenceProject[] = [
       "Modular sensor plug-and-play architecture"
     ],
     image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ff?auto=format&fit=crop&w=1200&q=80"
-  }
-];
-
-// ===================================================================
-// EXPORTS & INTERNATIONAL TRADE CATEGORIES (EMERGING / PLANNED)
-// ===================================================================
-export const EXPORT_DIVISIONS: ExportCategory[] = [
-  {
-    id: "textiles-export",
-    title: "Textiles, Yarns & Finished Apparel",
-    status: "Partner Onboarding",
-    description: "Building supply linkages with premier spinning mills and garment manufacturing clusters across Tamil Nadu (Tirupur, Coimbatore, Karur) for global bulk sourcing.",
-    products: [
-      "Combed & Carded Cotton Yarns (Ne 20s to Ne 60s)",
-      "Knitted Single Jersey, Pique & Interlock Fabrics",
-      "Private Label T-Shirts, Hoodies & Uniforms",
-      "Home Furnishing Linens, Kitchen Towels & Bedspreads"
-    ],
-    specifications: "Export-grade color fastness (Grade 4+), OEKO-TEX compliant processing, customized GSM weight.",
-    image: "https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "agri-commodities",
-    title: "Agricultural Commodities & Spices",
-    status: "Emerging Division",
-    description: "Direct sourcing framework connecting verified farmer collectives and processing units with international food distributors and commodity houses.",
-    products: [
-      "Non-Basmati & Sona Masoori Rice Varieties",
-      "Whole Spices: Turmeric Fingers, Black Pepper, Coriander",
-      "Dehydrated Onion & Garlic Flakes",
-      "Cold-Pressed Sesame & Groundnut Oils"
-    ],
-    specifications: "FSSAI certified, phytosanitary certified, moisture-controlled vacuum packaging available.",
-    image: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&w=1200&q=80"
-  },
-  {
-    id: "general-merchandise",
-    title: "General Merchandise & Industrial Goods",
-    status: "Planned Venture",
-    description: "Facilitating bespoke procurement, quality auditing, container freight consolidation, and merchant export brokerage for diverse consumer goods.",
-    products: [
-      "Coir Pith & Sustainable Horticultural Substrates",
-      "Eco-Friendly Areca Nut Palm Leaf Tableware",
-      "Bespoke Metal Fabrication & Cast Hardware",
-      "Paper & Packaging Box Corrugation"
-    ],
-    specifications: "Strict third-party batch inspection and container load optimization.",
-    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80"
   }
 ];
 

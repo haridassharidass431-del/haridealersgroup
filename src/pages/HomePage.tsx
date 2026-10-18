@@ -1,26 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { BUSINESS_CONFIG, getWhatsAppLink } from '../data/businessData';
-import { 
-  ArrowRight, 
-  Sparkles, 
-  Printer, 
-  ShoppingBag, 
-  Cpu, 
-  Globe2, 
-  Code2, 
-  FlaskConical, 
-  CheckCircle2, 
-  ChevronDown, 
-  ShieldCheck, 
-  Zap, 
-  Layers, 
+import {
+  ArrowRight,
+  Printer,
+  Cpu,
+  CheckCircle2,
+  ChevronDown,
+  ShieldCheck,
   MessageCircle,
-  ExternalLink
 } from 'lucide-react';
 
 export const HomePage: React.FC = () => {
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const divisions = BUSINESS_CONFIG.divisions;
+  useEffect(() => {
+    const timer = window.setInterval(() => setCarouselIndex((index) => (index + 1) % divisions.length), 4500);
+    return () => window.clearInterval(timer);
+  }, [divisions.length]);
   return (
     <div className="relative overflow-hidden">
       
@@ -43,7 +41,7 @@ export const HomePage: React.FC = () => {
           >
             <div className="w-2 h-2 rounded-full bg-[#D4AF37] animate-ping" />
             <span className="text-[11px] sm:text-xs font-semibold tracking-[0.25em] uppercase text-[#F5D77F]">
-              COMMERCE &middot; ARTIGENCE AI &middot; GLOBAL TRADE
+              XEROX &middot; ARTIGENCE AI &middot; DIGITAL SERVICES
             </span>
           </motion.div>
 
@@ -156,15 +154,15 @@ export const HomePage: React.FC = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-xs">
                   <div className="p-3 bg-black/40 rounded-xl border border-white/10">
                     <span className="text-[#9da0ab] block">B&amp;W Laser Copy</span>
-                    <strong className="text-white font-mono text-sm">₹2.00 / side</strong>
+                    <strong className="text-white font-mono text-sm">₹0.90 wholesale / ₹2 single</strong>
                   </div>
                   <div className="p-3 bg-black/40 rounded-xl border border-white/10">
                     <span className="text-[#9da0ab] block">Colour Laser Print</span>
-                    <strong className="text-white font-mono text-sm">₹10.00 / page</strong>
+                    <strong className="text-white font-mono text-sm">₹5 / page</strong>
                   </div>
                   <div className="p-3 bg-black/40 rounded-xl border border-white/10">
                     <span className="text-[#9da0ab] block">Spiral &amp; Binding</span>
-                    <strong className="text-white font-mono text-sm">from ₹35</strong>
+                    <strong className="text-white font-mono text-sm">₹30 wholesale / ₹40 single</strong>
                   </div>
                 </div>
 
@@ -232,6 +230,24 @@ export const HomePage: React.FC = () => {
             </p>
           </div>
 
+          <div className="relative mb-8 overflow-hidden rounded-3xl border border-[#D4AF37]/30">
+            <AnimatePresence mode="wait">
+              <motion.div key={carouselIndex} initial={{ opacity: 0, x: 36 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -36 }} transition={{ duration: 0.45 }} className="relative h-56 sm:h-72">
+                <img src={divisions[carouselIndex].image} alt="" className="absolute inset-0 h-full w-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/55 to-transparent" />
+                <div className="absolute inset-y-0 left-0 flex max-w-xl flex-col justify-center p-6 sm:p-10">
+                  <span className="text-xs uppercase tracking-[0.2em] text-[#F5D77F]">Featured division {carouselIndex + 1} / {divisions.length}</span>
+                  <h3 className="mt-3 text-2xl sm:text-4xl font-bold text-white font-editorial">{divisions[carouselIndex].shortTitle}</h3>
+                  <p className="mt-2 text-sm text-white/75">{divisions[carouselIndex].tagline}</p>
+                  <a href={divisions[carouselIndex].slug} className="mt-5 inline-flex w-fit items-center gap-2 rounded-full bg-[#D4AF37] px-5 py-2.5 text-xs font-bold text-black">Explore <ArrowRight className="h-4 w-4" /></a>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+            <div className="absolute bottom-4 right-5 flex gap-2">
+              {divisions.map((division, index) => <button key={division.id} type="button" aria-label={`Show ${division.shortTitle}`} onClick={() => setCarouselIndex(index)} className={`h-2.5 rounded-full transition-all ${index === carouselIndex ? 'w-8 bg-[#F5D77F]' : 'w-2.5 bg-white/60'}`} />)}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {BUSINESS_CONFIG.divisions.map((division) => (
               <motion.div
@@ -283,13 +299,13 @@ export const HomePage: React.FC = () => {
 
                   {/* Explore Button */}
                   <div className="pt-4 border-t border-white/10">
-                    <Link
-                      to={division.slug}
+                    <a
+                      href={division.slug}
                       className="w-full py-2.5 px-4 rounded-xl text-xs font-semibold bg-white/5 hover:bg-[#D4AF37] text-white hover:text-black border border-white/10 hover:border-[#D4AF37] flex items-center justify-center gap-2 transition-all duration-200"
                     >
                       <span>Explore {division.shortTitle}</span>
                       <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </motion.div>
@@ -339,13 +355,15 @@ export const HomePage: React.FC = () => {
                 </div>
 
                 <div className="pt-2 flex flex-wrap gap-4">
-                  <Link
-                    to="/artigence"
+                  <a
+                    href="https://artigenceaihub.netlify.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="px-7 py-3.5 rounded-full font-bold text-xs bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg shadow-purple-900/50 transition-all flex items-center gap-2 hover:scale-105"
                   >
                     <Cpu className="w-4 h-4" />
                     <span>Explore Artigence AI Lab &amp; Prototypes</span>
-                  </Link>
+                  </a>
 
                   <Link
                     to="/rnd"
@@ -353,6 +371,10 @@ export const HomePage: React.FC = () => {
                   >
                     <span>View R&amp;D Experiments</span>
                   </Link>
+                  <a href="https://artigenceaihub.netlify.app/" target="_blank" rel="noopener noreferrer" className="px-7 py-3.5 rounded-full font-semibold text-xs bg-white/5 hover:bg-white/10 text-purple-200 border border-purple-400/30 transition-all flex items-center gap-2">
+                    <span>Visit Artigence AI Hub</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
                 </div>
 
               </div>
